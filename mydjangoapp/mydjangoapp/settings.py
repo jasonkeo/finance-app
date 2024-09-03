@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Australia/Perth'
 
 USE_I18N = True
 
@@ -129,10 +129,18 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-CELERYD_POOL_RESTARTS = True
+CELERY_TIMEZONE = 'Australia/Perth'
+from celery.schedules import crontab# Other Celery settings
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'api.tasks.my_periodic_task',
+        'schedule': crontab(minute='*/1'),
+        
+    },
+   
+}
