@@ -21,5 +21,7 @@ jobs:
       - name: Execute script on remote server
         run: |
           echo "Current directory: $(pwd)"
+          ls -la
           ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} 'bash -s' < ./sync.sh
+          docker ps
           echo "Remote script executed"
