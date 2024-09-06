@@ -1,6 +1,9 @@
 cd the_app/
 git pull origin main
-docker compose down
-docker compose up --build --remove-orphans -d
+sleep 5
+echo "Restarting the server"
+docker compose down > /dev/null
+sleep 5
+docker compose up --build --remove-orphans > /dev/null
+echo "Server is up and running"
 docker ps
-echo "Synced and restarted the server"
