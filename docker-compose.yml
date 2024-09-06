@@ -64,7 +64,6 @@ services:
     command: ["npm", "run", "dev"]
 
   nginx:
-    
     image: nginx:latest
     container_name: nginx
     ports:
