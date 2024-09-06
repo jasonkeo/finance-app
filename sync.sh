@@ -1,5 +1,6 @@
 cd the_app/
-git pull origin main
+git pull origin main > /dev/null
+echo "Pulling the latest changes"
 sleep 5
 echo "Restarting the server"
 docker compose down > /dev/null
