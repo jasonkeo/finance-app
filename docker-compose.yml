@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: docker/django/Dockerfile
     container_name: django_web
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+   
     
     ports:
       - "8000:8000"
@@ -54,6 +54,14 @@ services:
     env_file:
       - secret.env 
     
+  frontend:
+    build: 
+      context: .
+      dockerfile: docker/next/Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    command: ["npm", "run", "dev"]
 
 volumes:
   postgres_data:
