@@ -1,14 +1,30 @@
-cd the_app/
-git pull origin main > /dev/null
+#!/bin/bash
+
+# Navigate to the app directory
+cd the_app/ || exit
+
+# Pull the latest changes from Git
 echo "Pulling the latest changes"
-sleep 5
-echo "Restarting the server"
-docker stop $(docker ps -q) > /dev/null
-docker rm $(docker ps -a -q) > /dev/null
-sleep 5
-docker build -no-cache > /dev/null
-docker compose up --remove-orphans > /dev/null
-echo "Server is up and running"
-cd frontend/
-PORT=3000 npm run dev
-docker ps
+git pull origin main > /dev/null
+
+# # Pause for 5 seconds (optional)
+# sleep 5
+
+# # Restart the server
+# echo "Restarting the server"
+# docker stop $(docker ps -q) > /dev/null
+# docker rm $(docker ps -a -q) > /dev/null
+
+# # Pause for 5 seconds (optional)
+# sleep 5
+
+# # Rebuild and bring up containers
+# docker-compose up --build --remove-orphans -d > /dev/null
+# echo "Server is up and running"
+
+# # Navigate to the frontend directory and manually run npm dev
+# cd frontend/ || exit
+# PORT=3000 npm run dev
+
+# # Show running containers
+# docker ps
