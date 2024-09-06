@@ -7,4 +7,6 @@ docker compose down > /dev/null
 sleep 5
 docker compose up --build --remove-orphans > /dev/null
 echo "Server is up and running"
+cd frontend/
+PORT=3000 npm run dev
 docker ps
