@@ -2,10 +2,8 @@ services:
   db:
     image: postgres:14
     container_name: postgres_db
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -16,47 +14,46 @@ services:
       - "6379:6379"
 
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: docker/django/Dockerfile
     container_name: django_web
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    volumes:
-      - .:/app
+    
     ports:
       - "8000:8000"
     depends_on:
       - db
       - redis
-    environment:
-      - DJANGO_SETTINGS_MODULE=mydjangoapp.settings
-      - DATABASE_URL=postgres://myuser:mypassword@db/mydatabase
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env
 
   celery:
-    build: .
+    build: 
+      context: .
+      dockerfile: docker/django/Dockerfile
     container_name: celery_worker
     command: ["celery", "-A", "mydjangoapp", "worker", "--loglevel=info"]
-    volumes:
-      - .:/app
+    
     depends_on:
       - redis
       - db
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env
 
   beat:
-    build: .
+    build: 
+      context: .
+      dockerfile: docker/django/Dockerfile
     container_name: celery_beat
     command: ["celery", "-A", "mydjangoapp", "beat", "--loglevel=info"]
-    volumes:
-      - .:/app
+  
     depends_on:
       - redis
       - db
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env 
+    
 
 volumes:
   postgres_data:
