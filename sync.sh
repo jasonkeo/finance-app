@@ -5,7 +5,7 @@ cd the_app/ || echo "Directory not found"
 
 # Pull the latest changes from Git
 echo "Pulling the latest changes"
-git reset --hard= > /dev/null
+git reset --hard > /dev/null
 git pull origin main --force
 
 # Pause for 5 seconds (optional)
@@ -13,6 +13,7 @@ sleep 5
 
 # Restart the server
 echo "Restarting the server"
+docker-compose down > /dev/null
 docker stop $(docker ps -q) > /dev/null
 docker rm $(docker ps -a -q) > /dev/null
 
