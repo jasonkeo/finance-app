@@ -63,5 +63,23 @@ services:
       - "3000:3000"
     command: ["npm", "run", "dev"]
 
+  nginx:
+    
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+      - frontend
+      - celery
+      - beat
+      - redis
+      - db
+
+
+
 volumes:
   postgres_data:
