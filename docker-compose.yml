@@ -6,6 +6,8 @@ services:
       - secret.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    # ports:
+    #   - "5432:5432"
 
   redis:
     image: redis:latest
@@ -59,6 +61,9 @@ services:
       context: .
       dockerfile: docker/next/Dockerfile
     container_name: frontend
+    volumes:
+       - ./frontend:/app  # Mount the local frontend directory to the container
+       - /app/node_modules 
     ports:
       - "3000:3000"
     command: ["npm", "run", "dev"]

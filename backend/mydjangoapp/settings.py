@@ -148,7 +148,7 @@ from celery.schedules import crontab# Other Celery settings
 CELERY_BEAT_SCHEDULE = {
     'task-number-one': {
         'task': 'api.tasks.my_periodic_task',
-        'schedule': crontab(minute='*/1'),
+        'schedule': crontab(minute=0, hour=0),
         
     },
    
