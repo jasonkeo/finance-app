@@ -37,7 +37,7 @@ def my_periodic_task():
             }
             
             # Send data to the Django API endpoint
-            api_url = 'http://localhost:8000/api/news/'  # Replace with your API endpoint URL
+            api_url = 'http://web:8000/api/news/'  # Replace with your API endpoint URL
             api_headers = {
                 'Content-Type': 'application/json'
             }

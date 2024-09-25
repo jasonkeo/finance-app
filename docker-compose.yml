@@ -39,6 +39,7 @@ services:
     container_name: celery_worker
     command: ["celery", "-A", "mydjangoapp", "worker", "--loglevel=info"]
     depends_on:
+      - web
       - redis
       - db
     env_file:
@@ -52,6 +53,7 @@ services:
     command: ["celery", "-A", "mydjangoapp", "beat", "--loglevel=info"]
   
     depends_on:
+      - web
       - redis
       - db
     env_file:

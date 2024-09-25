@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['celery_worker', 'localhost', '127.0.0.1', 'django_web', '172.18.0.5']
+ALLOWED_HOSTS = ['*','celery_worker', 'localhost', '127.0.0.1', 'django_web', '172.18.0.5']
 
 
 CORS_ALLOW_ALL_ORIGINS = True
