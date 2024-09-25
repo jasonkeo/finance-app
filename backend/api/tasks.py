@@ -1,7 +1,5 @@
 import os
 from celery import shared_task
-from .models import News
-from .serializer import NewsSerializer
 import requests
 from datetime import datetime
 
@@ -32,23 +30,25 @@ def my_periodic_task():
             # Extract titles from articles
             titles = [article['title'] for article in news['articles']]
             
-           
-                # Prepare data for the serializer
+            # Prepare data for the API endpoint
             data = {
                 'date': f"{todays_date}",
                 'news': titles
             }
-            print(data)
             
-            # Create or update the news item
-            serializer = NewsSerializer(data=data)
+            # Send data to the Django API endpoint
+            api_url = 'http://localhost:8000/api/news/'  # Replace with your API endpoint URL
+            api_headers = {
+                'Content-Type': 'application/json'
+            }
+
+            try:
+                api_response = requests.post(api_url, json=data, headers=api_headers)
+                api_response.raise_for_status()  # Will raise an HTTPError for bad responses
+                print("Data successfully sent to the API endpoint.")
+            except requests.RequestException as api_e:
+                print(f"Failed to send data to the API: {api_e}")
             
-            if serializer.is_valid():
-                serializer.save()  # This will create a new entry or update if needed
-            else:
-                print(f"Serializer validation failed: {serializer.errors}")
-            
-            print("News fetched and processed successfully!")
         else:
             print("Unexpected response format: No articles found.")
         

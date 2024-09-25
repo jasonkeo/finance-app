@@ -14,14 +14,18 @@ RUN poetry config virtualenvs.in-project false \
 
 # Set the working directory
 WORKDIR /app
-COPY backend/ ./
 
+# Copy the pyproject.toml and poetry.lock files to install dependencies first
+COPY backend/pyproject.toml backend/poetry.lock* /app/
+
+# Install dependencies
 RUN poetry install --no-root
 
-# Copy the Django application code
-
+# Copy the rest of the application code
+COPY backend /app/
 
 # Expose the port on which the Django app will run
 EXPOSE 8000
 
-
+# # Command to run the Django application
+# CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]

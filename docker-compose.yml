@@ -22,8 +22,8 @@ services:
     container_name: django_web
     # Command to run the Django application
     command: ["poetry","run","python", "manage.py", "runserver", "0.0.0.0:8000"]
-   
-    
+    volumes:
+       - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -38,8 +38,6 @@ services:
       dockerfile: docker/django/Dockerfile
     container_name: celery_worker
     command: ["celery", "-A", "mydjangoapp", "worker", "--loglevel=info"]
-    volumes:
-    - .:/app 
     depends_on:
       - redis
       - db
