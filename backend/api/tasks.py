@@ -34,10 +34,10 @@ def my_periodic_task():
             
            
                 # Prepare data for the serializer
-            data = "{
-                'date': todays_date,
+            data = {
+                'date': f"{todays_date}",
                 'news': titles
-            }"
+            }
             print(data)
             
             # Create or update the news item

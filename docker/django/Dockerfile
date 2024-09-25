@@ -24,5 +24,4 @@ RUN poetry install --no-root
 # Expose the port on which the Django app will run
 EXPOSE 8000
 
-# Command to run the Django application
-CMD ["poetry","run","python", "manage.py", "runserver", "0.0.0.0:8000"]
+
