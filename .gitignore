@@ -1,3 +1,4 @@
 secret.env
 backend/mydjangoapp/key.py
 
+node_modules/
