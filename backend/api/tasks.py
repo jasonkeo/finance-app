@@ -34,6 +34,7 @@ def my_periodic_task():
             data = {
                 'date': f"{todays_date}",
                 'news': titles
+                
             }
             
             # Send data to the Django API endpoint
