@@ -63,7 +63,7 @@ def my_periodic_task():
 
             data = {
                 'date': f"{todays_date}",
-                'news': lst
+                'news': lst,
                 'market': market_data
             }
             
@@ -87,8 +87,26 @@ def my_periodic_task():
         print(f"Failed to fetch news: {e}")
 
 
-# urls = { 'gdp' :' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual',
-#                      'unemployment' : 'https://www.alphavantage.co/query?function=UNEMPLOYMENT',
-#                         'cpi' : 'https://www.alphavantage.co/query?function=CPI',
-#                         'interest_rate' : 'https://www.alphavantage.co/query?function=INTEREST_RATE',
-# }
+@shared_task
+def monthly():
+    todays_date = datetime.now().strftime('%Y-%m-%d')
+    market_key = os.getenv('AlPHA_API')
+    headers = {
+        'Authorization': f'Bearer {market_key}'
+    }
+    urls = { 'gdp' :' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual',
+                    'unemployment' : 'https://www.alphavantage.co/query?function=UNEMPLOYMENT',
+                    'cpi' : 'https://www.alphavantage.co/query?function=CPI',
+                            'interest_rate' : 'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE',
+    }
+
+    market_data = {}
+    try:
+        for key, url in urls.items():
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()  # Will raise an HTTPError for bad responses
+            temp = response.json()
+            
+
+    except requests.RequestException as e:
+        print(f"Failed to fetch market data: {e}")
