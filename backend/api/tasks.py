@@ -53,6 +53,7 @@ def my_periodic_task():
                     response = requests.get(url, headers=headers)
                     response.raise_for_status()  # Will raise an HTTPError for bad responses
                     temp = response.json()
+                    print(temp)
                     recent = temp["Meta Data"]["3. Last Refreshed"]
                     recent_data = temp["Time Series (Daily)"][recent]["1. open"]
                     
