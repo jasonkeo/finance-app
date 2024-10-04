@@ -93,38 +93,38 @@ def monthly():
     headers = {
         'Authorization': f'Bearer {market_key}'
     }
-    urls = { 'gdp' :' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual',
-                    'unemployment' : 'https://www.alphavantage.co/query?function=UNEMPLOYMENT',
-                    'cpi' : 'https://www.alphavantage.co/query?function=CPI',
-            'interest_rate' : 'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE',
+    urls = { 'gdp' : f' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual&apikey={market_key}',
+                    'unemployment' : f'https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={market_key}',
+                    'cpi' : f'https://www.alphavantage.co/query?function=CPI&apikey={market_key}',
+            'interest_rate' : f'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE&apikey={market_key}',
     }
 
     market_data = {}
     try:
         for key, url in urls.items():
-            response = requests.get(url, headers=headers)
+            response = requests.get(url)
             response.raise_for_status()  # Will raise an HTTPError for bad responses
             temp = response.json()
-            most_recent_data = max(temp, key=lambda x: int(x["date"]))
+            most_recent_data = max(temp['data'], key=lambda x: x["date"])
             market_data[key] = most_recent_data['value']
 
-            data = {
-                'date': f"{todays_date}",
-                'market_data': market_data
-            }
-            
-            # Send data to the Django API endpoint
-            api_url = 'http://web:8000/api/monthly/'  # Replace with your API endpoint URL
-            api_headers = {
-                'Content-Type': 'application/json'
-            }
+        data = {
+            'date': f"{todays_date}",
+            'market_data': market_data
+        }
+        
+        # Send data to the Django API endpoint
+        api_url = 'http://web:8000/api/monthly/'  # Replace with your API endpoint URL
+        api_headers = {
+            'Content-Type': 'application/json'
+        }
 
-            try:
-                api_response = requests.post(api_url, json=data, headers=api_headers)
-                api_response.raise_for_status()  # Will raise an HTTPError for bad responses
-                print("Data successfully sent to the API endpoint.")
-            except requests.RequestException as api_e:
-                print(f"Failed to send data to the API: {api_e}")
+        try:
+            api_response = requests.post(api_url, json=data, headers=api_headers)
+            api_response.raise_for_status()  # Will raise an HTTPError for bad responses
+            print("Data successfully sent to the API endpoint.")
+        except requests.RequestException as api_e:
+            print(f"Failed to send data to the API: {api_e}")
 
     except requests.RequestException as e:
         print(f"Failed to fetch market data: {e}")
