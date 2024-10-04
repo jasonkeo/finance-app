@@ -9,7 +9,7 @@ export default function Home() {
 
 
   return (
-    <div className="flex items-center justify-center mt-10  background: #f3f4f6;">
+    <div className="flex items-center justify-center mt-10 background: #f3f4f6;">
       <div className="grid grid-cols-3 grid-rows-2 gap-5">
         
       <div className="col-span-1">
