@@ -9,5 +9,5 @@ class NewsSerializer(serializers.ModelSerializer):
 
 class MonthlySerializer(serializers.ModelSerializer):
     class Meta:
-        model = News
+        model = Monthly
         fields = ['date', 'market_data']

@@ -96,7 +96,7 @@ def monthly():
     urls = { 'gdp' :' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual',
                     'unemployment' : 'https://www.alphavantage.co/query?function=UNEMPLOYMENT',
                     'cpi' : 'https://www.alphavantage.co/query?function=CPI',
-                            'interest_rate' : 'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE',
+            'interest_rate' : 'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE',
     }
 
     market_data = {}
@@ -105,7 +105,26 @@ def monthly():
             response = requests.get(url, headers=headers)
             response.raise_for_status()  # Will raise an HTTPError for bad responses
             temp = response.json()
+            most_recent_data = max(temp, key=lambda x: x["date"])
+            market_data[key] = most_recent_data['value']
+
+            data = {
+                'date': f"{todays_date}",
+                'market_data': market_data
+            }
             
+            # Send data to the Django API endpoint
+            api_url = 'http://web:8000/api/monthly/'  # Replace with your API endpoint URL
+            api_headers = {
+                'Content-Type': 'application/json'
+            }
+
+            try:
+                api_response = requests.post(api_url, json=data, headers=api_headers)
+                api_response.raise_for_status()  # Will raise an HTTPError for bad responses
+                print("Data successfully sent to the API endpoint.")
+            except requests.RequestException as api_e:
+                print(f"Failed to send data to the API: {api_e}")
 
     except requests.RequestException as e:
         print(f"Failed to fetch market data: {e}")
