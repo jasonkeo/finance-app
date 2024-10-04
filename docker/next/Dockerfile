@@ -4,7 +4,6 @@ FROM node:20-slim as development-stage
 WORKDIR /app
 
 
-
 COPY frontend/ ./
 
 # Install ALL Dependencies

@@ -105,7 +105,7 @@ def monthly():
             response = requests.get(url, headers=headers)
             response.raise_for_status()  # Will raise an HTTPError for bad responses
             temp = response.json()
-            most_recent_data = max(temp, key=lambda x: x["date"])
+            most_recent_data = max(temp, key=lambda x: int(x["date"]))
             market_data[key] = most_recent_data['value']
 
             data = {
