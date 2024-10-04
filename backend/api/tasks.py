@@ -42,18 +42,16 @@ def my_periodic_task():
             market_data = {}
 
             urls = {
-                        'VOO' : 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VOO',
-                        'VTI' : 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VTI'
+                        'VOO' : f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VOO&apikey={market_key}',
+                        'VTI' : f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VTI&apikey={market_key}'
             }
-            headers = {
-                 'Authorization': f'Bearer {market_key}'
-            }
+            
             try:
                 for key, url in urls.items():
-                    response = requests.get(url, headers=headers)
+                    response = requests.get(url)
                     response.raise_for_status()  # Will raise an HTTPError for bad responses
                     temp = response.json()
-                    print(temp)
+                    # print(temp)
                     recent = temp["Meta Data"]["3. Last Refreshed"]
                     recent_data = temp["Time Series (Daily)"][recent]["1. open"]
                     
@@ -65,7 +63,7 @@ def my_periodic_task():
             data = {
                 'date': f"{todays_date}",
                 'news': lst,
-                'market': market_data
+                'index': market_data
             }
             
             # Send data to the Django API endpoint
