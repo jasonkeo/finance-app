@@ -23,7 +23,9 @@ export default function News() {
     else {
       temp--
     }
-
+    if (index == null) {
+      return;
+    }
     if (index > news.length - 1) {
       temp = 0;
     }

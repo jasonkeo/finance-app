@@ -43,8 +43,10 @@ def my_periodic_task():
 
             urls = {
                         'VOO' : f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VOO&apikey={market_key}',
-                        'VTI' : f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VTI&apikey={market_key}'
-            }
+                        'VTI' : f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VTI&apikey={market_key}',
+    }
+
+            
             
             try:
                 for key, url in urls.items():
@@ -52,13 +54,47 @@ def my_periodic_task():
                     response.raise_for_status()  # Will raise an HTTPError for bad responses
                     temp = response.json()
                     # print(temp)
-                    recent = temp["Meta Data"]["3. Last Refreshed"]
-                    recent_data = temp["Time Series (Daily)"][recent]["1. open"]
+                    recent = temp["Time Series (Daily)"]
                     
-                    market_data[key] = recent_data
+                    closing_prices = [float(entry["4. close"]) for entry in list(recent.values())[:5]]
+
+                    market_data[key] = closing_prices
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")
+
+            new_urls =   {#                  "data": [
+        # {
+        #     "date": "2024-11-01",
+        #     "value": "4.2"
+        # },
+        # {
+        #     "date": "2024-10-01",
+        #     "value": "4.1"
+        # },
+        # {
+        #     "date": "2024-09-01",
+        #     "value": "4.1"
+                        'gdp' : f'https://www.alphavantage.co/query?function=REAL_GDP&interval=annual&apikey={market_key}',
+                       'unemployment' : f'https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={market_key}',
+                      'cpi' : f'https://www.alphavantage.co/query?function=CPI&apikey={market_key}',
+                         'interest_rate' : f'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE&apikey={market_key}',
+            }
+            try:
+                for key, new_urls in new_urls.items():
+                    response = requests.get(new_urls)
+                    response.raise_for_status()  # Will raise an HTTPError for bad responses
+                    temp = response.json()
+                    # print(temp)
+                    recent = temp["data"]
+                    
+                    closing_prices = [float(entry["value"]) for entry in recent[:5]]
+
+                    market_data[key] = closing_prices
+
+            except requests.RequestException as e:
+                print(f"Failed to fetch market data: {e}")
+
 
             data = {
                 'date': f"{todays_date}",
@@ -86,45 +122,3 @@ def my_periodic_task():
         print(f"Failed to fetch news: {e}")
 
 
-@shared_task
-def monthly():
-    todays_date = datetime.now().strftime('%Y-%m-%d')
-    market_key = os.getenv('AlPHA_API')
-    headers = {
-        'Authorization': f'Bearer {market_key}'
-    }
-    urls = { 'gdp' : f' https://www.alphavantage.co/query?function=REAL_GDP&interval=annual&apikey={market_key}',
-                    'unemployment' : f'https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={market_key}',
-                    'cpi' : f'https://www.alphavantage.co/query?function=CPI&apikey={market_key}',
-            'interest_rate' : f'https://www.alphavantage.co/query?function=FEDERAL_FUNDS_RATE&apikey={market_key}',
-    }
-
-    market_data = {}
-    try:
-        for key, url in urls.items():
-            response = requests.get(url)
-            response.raise_for_status()  # Will raise an HTTPError for bad responses
-            temp = response.json()
-            most_recent_data = max(temp['data'], key=lambda x: x["date"])
-            market_data[key] = most_recent_data['value']
-
-        data = {
-            'date': f"{todays_date}",
-            'market_data': market_data
-        }
-        
-        # Send data to the Django API endpoint
-        api_url = 'http://web:8000/api/monthly/'  # Replace with your API endpoint URL
-        api_headers = {
-            'Content-Type': 'application/json'
-        }
-
-        try:
-            api_response = requests.post(api_url, json=data, headers=api_headers)
-            api_response.raise_for_status()  # Will raise an HTTPError for bad responses
-            print("Data successfully sent to the API endpoint.")
-        except requests.RequestException as api_e:
-            print(f"Failed to send data to the API: {api_e}")
-
-    except requests.RequestException as e:
-        print(f"Failed to fetch market data: {e}")

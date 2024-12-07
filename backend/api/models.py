@@ -7,9 +7,3 @@ class News(models.Model):
     def __str__(self):
         return self.date
 
-
-class Monthly(models.Model):
-    date = models.TextField() 
-    market_data = models.JSONField() 
-    def __str__(self):
-        return self.date

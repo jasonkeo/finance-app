@@ -10,14 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Monthly',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.TextField()),
-                ('market_data', models.JSONField()),
-            ],
-        ),
+       
         migrations.AddField(
             model_name='news',
             name='index',
