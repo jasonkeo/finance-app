@@ -1,26 +1,27 @@
-export async function test() {
+import dotenv from 'dotenv';
+
+dotenv.config();
+export default async function get() {
+    const today = new Date();
+    const formattedToday = today.toISOString().split('T')[0];
+    const backend = process.env.BACKEND? process.env.BACKEND : '170.64.157.96';
+    const url = `http://localhost:8000/api/news/`;
     try {
-        const response = await fetch("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=VTI&apikey=2GS25PVYA0IK4RH2");
+        const response = await fetch(url); // Replace with your API URL
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         
-        // Safely access the data and extract the last 5 closing prices
-        const dailyData = data['Time Series (Daily)'];
-        if (!dailyData) {
-            throw new Error("Missing 'Time Series (Daily)' in response");
+        for (let i = data.length - 1; i > 0; i--) {
+            if (data[i]['index'] == formattedToday) {
+                return data[i]['index'];
+            }
         }
-
-        // Use Object.values to simplify extraction and slice to get the first 5 entries
-        const closingPrices = Object.values(dailyData)
-            .slice(0, 5)
-            .map(entry => entry['4. close']);
-        console.log(closingPrices)
-        return closingPrices;
+        return data[data.length - 1]['index'];
+        
     } catch (error) {
-        console.error("Error in test function:", error);
-        throw error; // Re-throw error to handle it in fetchData
+        console.error('Error fetching data:', error);
+        return(['Error']);
     }
 }
-
-
-
-
