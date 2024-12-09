@@ -19,19 +19,25 @@ export default function News() {
     let temp = index;
     if (num > 0) {
       temp++
+      if (index > news.length - 1) {
+        temp = 0;
+      }
     }
     else {
-      temp--
+      
+      if (index < 1 ) {
+        temp = news.length - 1;
+
+      } else {
+        temp--
+      }
+
     }
     if (index == null) {
       return;
     }
-    if (index > news.length - 1) {
-      temp = 0;
-    }
-    else if (index < 0) {
-      temp = news.length;
-    }
+    
+   
     changeindex(temp)
     
   }

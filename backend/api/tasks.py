@@ -17,7 +17,7 @@ def my_periodic_task():
         'Authorization': f'Bearer {api_key}'
     }
     
-    url = 'https://newsapi.org/v2/top-headlines'
+    url = 'https://newsapi.org/v2/top-headlines&pageSize=100'
     params = {
         'country': 'us',
     }
@@ -58,7 +58,7 @@ def my_periodic_task():
                     
                     closing_prices = [float(entry["4. close"]) for entry in list(recent.values())[:8]]
                     dates = [entry for entry in list(recent.keys())[:8]]
-                    market_data[key] = [closing_prices[-1], dates[-1]]
+                    market_data[key] = [closing_prices[:-1], dates[:-1]]
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")

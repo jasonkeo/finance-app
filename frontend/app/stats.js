@@ -12,7 +12,9 @@ export default function Stats() {
         try {
             const fetchedData = await data();
             setDat(fetchedData[selectedOption][0] || [0, 0, 0, 0, 0]);
-            setTime(fetchedData[selectedOption][1] || [0, 0, 0, 0, 0]);
+            const dateObjects = fetchedData[selectedOption][1].map(date => new Date(date));
+            setTime(dateObjects|| [0, 0, 0, 0, 0]);
+            
         } catch (error) {
             console.error("Error in fetchData function:", error);
         }
@@ -46,9 +48,9 @@ export default function Stats() {
             <LineChart
                 xAxis={[
                     {
-                        data: [
+                        data: 
                             time
-                        ],
+                        ,
                         scaleType: 'time', // Use a time scale for proper date handling
                     },
                 ]}
