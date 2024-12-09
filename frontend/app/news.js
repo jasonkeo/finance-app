@@ -37,8 +37,8 @@ export default function News() {
   }
 
   return (
-    <div className="p-5 bg-white min-w-[300px] max-w-[300px] rounded-lg shadow-md transition-transform transition-shadow hover:shadow-custom hover:translate-y-[-4.30px]">
-      <div className="flex justify-between">Today News 
+    <div className="p-5 bg-white lg:max-w-[300px] rounded-lg shadow-md transition-transform transition-shadow hover:shadow-custom hover:translate-y-[-4.30px]">
+      <div className="flex justify-between"><strong>Today News</strong> 
       
         <div className="flex no-wrap whitespace-nowrap">
           <button onClick={() =>indexupdate(-1)}><ChevronLeft /></button>

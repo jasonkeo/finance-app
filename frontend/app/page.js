@@ -10,17 +10,20 @@ export default function Home() {
 
   return (
     <div className="flex items-center justify-center mt-10 background: #f3f4f6;">
-      <div className="grid grid-cols-3 grid-rows-2 gap-5">
+      <div className="grid grid-rows-2 gap-5 p-5">
         
-      <div className="col-span-1">
-      <News />
-    </div>
-    <div className="col-span-2">
+      <div className="flex flex-col lg:flex-row gap-5">
       <Stats />
+
+      <News/>
+    
+      
+    
     </div>
+   
        
 
-        <div className="col-span-3">
+        <div className="">
         <Analysis></Analysis>
         </div>
       </div>

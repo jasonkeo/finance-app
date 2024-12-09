@@ -56,9 +56,9 @@ def my_periodic_task():
                     # print(temp)
                     recent = temp["Time Series (Daily)"]
                     
-                    closing_prices = [float(entry["4. close"]) for entry in list(recent.values())[:5]]
-
-                    market_data[key] = closing_prices
+                    closing_prices = [float(entry["4. close"]) for entry in list(recent.values())[:8]]
+                    dates = [entry for entry in list(recent.keys())[:8]]
+                    market_data[key] = [closing_prices[-1], dates[-1]]
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")
@@ -88,9 +88,10 @@ def my_periodic_task():
                     # print(temp)
                     recent = temp["data"]
                     
-                    closing_prices = [float(entry["value"]) for entry in recent[:5]]
-
-                    market_data[key] = closing_prices
+                    closing_prices = [float(entry["value"]) for entry in recent[:8]]
+                    
+                    dates = [(entry["date"]) for entry in recent[:8]]
+                    market_data[key] = [closing_prices[:-1], dates[:-1]]
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")
