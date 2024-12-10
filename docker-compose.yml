@@ -36,8 +36,9 @@ services:
     build: 
       context: .
       dockerfile: docker/django/Dockerfile
-    container_name: celery_worker
+    container_name: celery
     command: ["celery", "-A", "mydjangoapp", "worker", "--loglevel=info"]
+    
     depends_on:
       - web
       - redis

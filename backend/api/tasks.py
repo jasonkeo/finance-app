@@ -2,6 +2,8 @@ import os
 from celery import shared_task
 import requests
 from datetime import datetime
+from openai import OpenAI
+client = OpenAI()
 
 @shared_task
 def my_periodic_task():
@@ -95,12 +97,72 @@ def my_periodic_task():
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")
+            msg = f"Given the currents news or news you research, analysis the market indicators below, give predictions whether they will increase, decrease,
+              stay the same and more importantly why you think that.
+              - Unemployment Rate:
+                - High unemployment → Lower consumer spending → Reduced corporate profits → S&P 500 decline
+                - Low unemployment → Higher consumer spending → Increased corporate profits → S&P 500 rise
+
+            - Interest Rates:
+            - Rising interest rates → Higher borrowing costs → Reduced business investments & consumer spending → S&P 500 decline
+            - Falling interest rates → Cheaper borrowing → Business expansion & increased consumer spending → S&P 500 rise
+
+            - Inflation:
+            - High inflation → Increased input costs → Lower corporate profit margins → S&P 500 decline
+            - Moderate inflation → Indicates economic growth → Potential S&P 500 gains
+
+            - War and Geopolitical Tensions:
+            - Increased oil prices due to supply disruptions → Higher inflation → Lower consumer spending & corporate profits → S&P 500 decline
+            - Peace agreements → Market stability → S&P 500 recovery
+
+            - Sanctions and Trade Wars:
+            - Sanctions on major economies → Supply chain disruptions & trade slowdown → Corporate revenue decline → S&P 500 drop
+            - Trade agreements → Reduced tariffs → Increased trade and profitability → S&P 500 rise
+
+            - Earnings Reports:
+            - Strong earnings → Investor confidence → Higher S&P 500
+            - Weak earnings → Investor sell-off → Lower S&P 500
+
+            - Mergers & Acquisitions:
+            - Significant M&A activity → Market confidence in growth prospects → S&P 500 rise
+
+            - Stock Buybacks:
+            - Corporate stock buybacks → Reduced supply of shares → Higher stock prices → S&P 500 boost
+
+            - Fiscal Policy (Taxes & Spending):
+            - Tax cuts → Increased disposable income & corporate profits → S&P 500 rise
+            - Tax hikes → Reduced consumer & business spending → S&P 500 decline
+
+            - Monetary Policy (Federal Reserve Actions):
+            - Quantitative easing → Increased liquidity → S&P 500 rise
+            - Tightening monetary policy → Reduced liquidity → S&P 500 decline
+
+            - Consumer Confidence Index (CCI):
+            - High CCI → More spending → Stronger corporate performance → S&P 500 rise
+            - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline
 
 
+               
+                 Write you answer in dot points and make sure its short but efficient:
+              Today date:{todays_date}, News:{lst} (researched more if needed)
+              Today date:{market_data} "
+                        
+            completion = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": msg
+                    }
+                ]
+            )
+
+            res= completion.choices[0].message
             data = {
                 'date': f"{todays_date}",
                 'news': lst,
-                'index': market_data
+                'index': market_data,
+                'analysis': res
             }
             
             # Send data to the Django API endpoint
