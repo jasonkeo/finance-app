@@ -143,7 +143,7 @@ def my_periodic_task():
                 - High CCI → More spending → Stronger corporate performance → S&P 500 rise  
                 - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline  
 
-                Write your answer in dot points and make sure it's short but efficient:  
+                Write your answer in dot points and make sure it's short (less than 6 sentences long) but efficient:  
                 **Today’s Date:** {todays_date}  
                 **News:** {lst} (research more if needed)  
                 **Market Data:** {market_data}  
