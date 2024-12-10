@@ -10,6 +10,7 @@ def my_periodic_task():
     todays_date = datetime.now().strftime('%Y-%m-%d')
     api_key = os.getenv('NEWS_API')
     market_key = os.getenv('AlPHA_API')
+    client.api_key = os.getenv('OPENAI_API_KEY')
     
     if not api_key:
         print("API key is not set.")
@@ -19,7 +20,7 @@ def my_periodic_task():
         'Authorization': f'Bearer {api_key}'
     }
     
-    url = 'https://newsapi.org/v2/top-headlines&pageSize=100'
+    url = 'https://newsapi.org/v2/top-headlines'
     params = {
         'country': 'us',
     }
@@ -97,55 +98,57 @@ def my_periodic_task():
 
             except requests.RequestException as e:
                 print(f"Failed to fetch market data: {e}")
-            msg = f"Given the currents news or news you research, analysis the market indicators below, give predictions whether they will increase, decrease,
-              stay the same and more importantly why you think that.
-              - Unemployment Rate:
-                - High unemployment → Lower consumer spending → Reduced corporate profits → S&P 500 decline
-                - Low unemployment → Higher consumer spending → Increased corporate profits → S&P 500 rise
+            msg = f"""Given the current news or news you research, analyze the market indicators below, give predictions on whether they will increase, decrease, 
+                stay the same, and more importantly, explain why you think that.
 
-            - Interest Rates:
-            - Rising interest rates → Higher borrowing costs → Reduced business investments & consumer spending → S&P 500 decline
-            - Falling interest rates → Cheaper borrowing → Business expansion & increased consumer spending → S&P 500 rise
+                - **Unemployment Rate:**  
+                - High unemployment → Lower consumer spending → Reduced corporate profits → S&P 500 decline  
+                - Low unemployment → Higher consumer spending → Increased corporate profits → S&P 500 rise  
 
-            - Inflation:
-            - High inflation → Increased input costs → Lower corporate profit margins → S&P 500 decline
-            - Moderate inflation → Indicates economic growth → Potential S&P 500 gains
+                - **Interest Rates:**  
+                - Rising interest rates → Higher borrowing costs → Reduced business investments & consumer spending → S&P 500 decline  
+                - Falling interest rates → Cheaper borrowing → Business expansion & increased consumer spending → S&P 500 rise  
 
-            - War and Geopolitical Tensions:
-            - Increased oil prices due to supply disruptions → Higher inflation → Lower consumer spending & corporate profits → S&P 500 decline
-            - Peace agreements → Market stability → S&P 500 recovery
+                - **Inflation:**  
+                - High inflation → Increased input costs → Lower corporate profit margins → S&P 500 decline  
+                - Moderate inflation → Indicates economic growth → Potential S&P 500 gains  
 
-            - Sanctions and Trade Wars:
-            - Sanctions on major economies → Supply chain disruptions & trade slowdown → Corporate revenue decline → S&P 500 drop
-            - Trade agreements → Reduced tariffs → Increased trade and profitability → S&P 500 rise
+                - **War and Geopolitical Tensions:**  
+                - Increased oil prices due to supply disruptions → Higher inflation → Lower consumer spending & corporate profits → S&P 500 decline  
+                - Peace agreements → Market stability → S&P 500 recovery  
 
-            - Earnings Reports:
-            - Strong earnings → Investor confidence → Higher S&P 500
-            - Weak earnings → Investor sell-off → Lower S&P 500
+                - **Sanctions and Trade Wars:**  
+                - Sanctions on major economies → Supply chain disruptions & trade slowdown → Corporate revenue decline → S&P 500 drop  
+                - Trade agreements → Reduced tariffs → Increased trade and profitability → S&P 500 rise  
 
-            - Mergers & Acquisitions:
-            - Significant M&A activity → Market confidence in growth prospects → S&P 500 rise
+                - **Earnings Reports:**  
+                - Strong earnings → Investor confidence → Higher S&P 500  
+                - Weak earnings → Investor sell-off → Lower S&P 500  
 
-            - Stock Buybacks:
-            - Corporate stock buybacks → Reduced supply of shares → Higher stock prices → S&P 500 boost
+                - **Mergers & Acquisitions:**  
+                - Significant M&A activity → Market confidence in growth prospects → S&P 500 rise  
 
-            - Fiscal Policy (Taxes & Spending):
-            - Tax cuts → Increased disposable income & corporate profits → S&P 500 rise
-            - Tax hikes → Reduced consumer & business spending → S&P 500 decline
+                - **Stock Buybacks:**  
+                - Corporate stock buybacks → Reduced supply of shares → Higher stock prices → S&P 500 boost  
 
-            - Monetary Policy (Federal Reserve Actions):
-            - Quantitative easing → Increased liquidity → S&P 500 rise
-            - Tightening monetary policy → Reduced liquidity → S&P 500 decline
+                - **Fiscal Policy (Taxes & Spending):**  
+                - Tax cuts → Increased disposable income & corporate profits → S&P 500 rise  
+                - Tax hikes → Reduced consumer & business spending → S&P 500 decline  
 
-            - Consumer Confidence Index (CCI):
-            - High CCI → More spending → Stronger corporate performance → S&P 500 rise
-            - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline
+                - **Monetary Policy (Federal Reserve Actions):**  
+                - Quantitative easing → Increased liquidity → S&P 500 rise  
+                - Tightening monetary policy → Reduced liquidity → S&P 500 decline  
 
+                - **Consumer Confidence Index (CCI):**  
+                - High CCI → More spending → Stronger corporate performance → S&P 500 rise  
+                - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline  
 
-               
-                 Write you answer in dot points and make sure its short but efficient:
-              Today date:{todays_date}, News:{lst} (researched more if needed)
-              Today date:{market_data} "
+                Write your answer in dot points and make sure it's short but efficient:  
+                **Today’s Date:** {todays_date}  
+                **News:** {lst} (research more if needed)  
+                **Market Data:** {market_data}  
+                """
+
                         
             completion = client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -157,12 +160,14 @@ def my_periodic_task():
                 ]
             )
 
-            res= completion.choices[0].message
+            res = completion.choices[0].message
+            
+
             data = {
                 'date': f"{todays_date}",
                 'news': lst,
                 'index': market_data,
-                'analysis': res
+                'analysis': str(res)
             }
             
             # Send data to the Django API endpoint
