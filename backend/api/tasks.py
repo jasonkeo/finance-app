@@ -3,14 +3,14 @@ from celery import shared_task
 import requests
 from datetime import datetime
 from openai import OpenAI
-client = OpenAI()
+client = OpenAI(os.getenv('OPENAI_API_KEY'))
 
 @shared_task
 def my_periodic_task():
     todays_date = datetime.now().strftime('%Y-%m-%d')
     api_key = os.getenv('NEWS_API')
     market_key = os.getenv('AlPHA_API')
-    client.api_key = os.getenv('OPENAI_API_KEY')
+    
     
     if not api_key:
         print("API key is not set.")
@@ -160,14 +160,14 @@ def my_periodic_task():
                 ]
             )
 
-            res = completion.choices[0].message
+            res = completion.choices[0].message.content
             
 
             data = {
                 'date': f"{todays_date}",
                 'news': lst,
                 'index': market_data,
-                'analysis': str(res)
+                'analysis': res
             }
             
             # Send data to the Django API endpoint
