@@ -5,7 +5,7 @@ export default async function get() {
     const today = new Date();
     const formattedToday = today.toISOString().split('T')[0];
     const backend = '170.64.157.96';
-    const url = `http://${backend}:8000/api/news`;
+    const url = 'http://$170.64.157.96:8000/api/news/';
     
     try {
         const response = await fetch(url, {
