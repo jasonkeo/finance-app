@@ -29,10 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*','https://ilovepickles.cc/','celery_worker', 'localhost', '127.0.0.1', 'django_web', '172.18.0.5', 'http://ilovepickles.cc/',]
+ALLOWED_HOSTS = ['*','https://ilovepickles.cc/','celery_worker', 'localhost', '127.0.0.1', 'django_web', '172.18.0.5', 'http://ilovepickles.cc/','ilovepickles.cc']
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'https://ilovepickles.cc',
+]
+
 CORS_ALLOW_CREDENTIALS = True
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
