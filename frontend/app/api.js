@@ -8,7 +8,14 @@ export default async function get() {
     const url = `http://${backend}:8000/api/news/`;
     
     try {
-        const response = await fetch(url); // Replace with your API URL
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+       
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
