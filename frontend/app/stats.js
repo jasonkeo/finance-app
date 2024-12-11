@@ -3,16 +3,16 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import data from './data';
 import { useEffect, useState } from 'react';
 
-export default function Stats() {
-    const [dat, setDat] = useState([0, 0, 0, 0, 0]);
-    const [time, setTime] = useState([0, 0, 0, 0, 0]);
+export default function Stats({stats}) {
+    const [dat, setDat] = useState([0,0,0,0,0]);
+    const [time, setTime] = useState([0,0,0,0,0]);
     const [selectedOption, setSelectedOption] = useState("VOO");
 
     async function fetchData() {
         try {
-            const fetchedData = await data();
-            setDat(fetchedData[selectedOption][0] || [0, 0, 0, 0, 0]);
-            const dateObjects = fetchedData[selectedOption][1].map(date => new Date(date));
+            
+            setDat(stats[selectedOption][0] || [0, 0, 0, 0, 0]);
+            const dateObjects = stats[selectedOption][1].map(date => new Date(date));
             setTime(dateObjects|| [0, 0, 0, 0, 0]);
             
         } catch (error) {

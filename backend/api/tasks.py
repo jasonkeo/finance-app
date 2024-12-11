@@ -3,7 +3,7 @@ from celery import shared_task
 import requests
 from datetime import datetime
 from openai import OpenAI
-client = OpenAI(os.getenv('OPENAI_API_KEY'))
+client = OpenAI()
 
 @shared_task
 def my_periodic_task():
@@ -101,6 +101,13 @@ def my_periodic_task():
             msg = f"""Given the current news or news you research, analyze the market indicators below, give predictions on whether they will increase, decrease, 
                 stay the same, and more importantly, explain why you think that.
 
+                 This are details you will use:
+                **Today’s Date:** {todays_date}  
+                **News:** {lst} (research more if needed)  
+                **Market Data:** {market_data}  
+
+                
+                Here's some logic to help you with your analysis:
                 - **Unemployment Rate:**  
                 - High unemployment → Lower consumer spending → Reduced corporate profits → S&P 500 decline  
                 - Low unemployment → Higher consumer spending → Increased corporate profits → S&P 500 rise  
@@ -143,10 +150,11 @@ def my_periodic_task():
                 - High CCI → More spending → Stronger corporate performance → S&P 500 rise  
                 - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline  
 
-                Write your answer in dot points and make sure it's short (less than 6 sentences long) but efficient:  
-                **Today’s Date:** {todays_date}  
-                **News:** {lst} (research more if needed)  
-                **Market Data:** {market_data}  
+                Write your answer like the following example:
+              **Market Indicator Predictions as of December 11, 2024:**\n\n- **Unemployment Rate:**  \n  - Prediction: **Decrease**  \n  - Reason: Current unemployment is stable around 4.2%, indicating a steady job market that supports consumer spending and corporate profits, likely benefiting the S&P 500.\n\n- **Interest Rates:**  \n  - Prediction: **Stay the Same**  \n  - Reason: With rates at 4.64%, a pause in further increases may support borrowing and investment, aiding corporate profits, thus positively impacting the S&P 500.\n\n- **Inflation:**  \n  - Prediction: **Stay the Same**  \n  - Reason: The CPI is stable, suggesting moderate inflation that indicates economic growth without eroding profit margins significantly, resulting in a neutral impact on the S&P 500.\n\n- **Geopolitical Tensions:**  \n  - Prediction: **Slight Decrease**  \n  - Reason: Ongoing tensions could disrupt markets and elevate oil prices, leading to higher inflation and decreased consumer spending, negatively affecting the S&P 500.\n\n- **Earnings Reports:**  \n  - Prediction: **Increase**  \n  - Reason: Expect strong earnings reports due to stable economic conditions, boosting investor confidence and likely lifting the S&P 500.\n\n- **Consumer Confidence Index (CCI):**  \n  - Prediction: **Increase**  \n  - Reason: With a reasonable unemployment rate and stable inflation, consumer confidence might rise, leading to increased spending and stronger corporate performance, benefiting the S&P 500.\n\nOverall, the market outlook is cautiously optimistic with factors supporting growth, although geopolitical risks could introduce volatility.
+
+               
+
                 """
 
                         

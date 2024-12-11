@@ -1,19 +1,8 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import infomation from "./infomation";
-import { useEffect, useState } from "react";
-export default function News() {
-  const [news, changenews] = useState(null);
+export default function News({news}) {
   const [index, changeindex] = useState(0);
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await infomation();
-      changenews(data);
-      console.log(data); 
-    }
-    fetchData();
-    
-  },[]);
+
 
   function indexupdate(num) {
     let temp = index;

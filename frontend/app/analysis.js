@@ -1,21 +1,16 @@
-import chatgpt from "./chatgpt"
-import { useState, useEffect} from "react";
+import chatgpt from "./api"
 
-export default function Analysis() {
-  var [chat, changeChat] = useState("");  
-  useEffect(() => {
-    async function fetchData() {
-      const model = await chatgpt();
-      changeChat(model);
-      console.log(model);
-    }
-    fetchData();
-    }, []);
+import ReactMarkdown from 'react-markdown';
+export default function Analysis({chat}) {
+   
+ 
 
     return (
-      <div className="p-5 bg-white w-full rounded-lg shadow-md transition-transform transition-shadow hover:shadow-custom hover:translate-y-[-4.30px]">
+      <div className="p-5 bg-white max-w-[820px] max-h-[370px] overflow-y-scroll rounded-lg shadow-md transition-transform transition-shadow hover:shadow-custom hover:translate-y-[-4.30px]">
         <strong>Analysis</strong>
-        <p>{chat}</p>
+        <ReactMarkdown> 
+          {chat}
+</ReactMarkdown>
       </div>
     );
   }

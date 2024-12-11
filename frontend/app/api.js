@@ -14,11 +14,15 @@ export default async function get() {
         const data = await response.json();
         
         for (let i = data.length - 1; i > 0; i--) {
-            if (data[i]['analysis'] == formattedToday) {
-                return data[i]['analysis'];
+            if (data[i]['date'] == formattedToday) {
+                console.log(data[i])
+                return data[i];
+            
             }
         }
-        return data[data.length - 1]['analysis'];
+        console.log(data[data.length - 1])
+        return data[data.length - 1];
+        
         
     } catch (error) {
         console.error('Error fetching data:', error);
