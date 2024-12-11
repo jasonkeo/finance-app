@@ -1,6 +1,5 @@
 'use client'
 import { LineChart } from '@mui/x-charts/LineChart';
-import data from './data';
 import { useEffect, useState } from 'react';
 
 export default function Stats({stats}) {
@@ -22,7 +21,7 @@ export default function Stats({stats}) {
 
     useEffect(() => {
         fetchData();
-    }, [selectedOption]);
+    }, [selectedOption, stats]);
 
     const handleSelectChange = (e) => {
         setSelectedOption(e.target.value);

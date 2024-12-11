@@ -1,16 +1,20 @@
 'use client'
 import Image from "next/image";
-import Get from "./infomation";
+
 import { useEffect, useState } from "react";
 import News from "./news";
 import Stats from "./stats";
 import Analysis from "./analysis";
 import api from "./api"
-import { use } from "react";
-
 export default function Home() {
 
-  const [data, setData] = useState();
+  const [data, setData] = useState(
+    {
+      "news": [],
+      "index": {},
+      "analysis": ""
+    }
+  );
   useEffect(() => {
     async function fetchData() {
       try {
@@ -28,9 +32,9 @@ export default function Home() {
       <div className="grid grid-rows-2 gap-5 p-5">
         
       <div className="flex flex-col lg:flex-row gap-5 flex-grow-0">
-      {/* <Stats stats={}/>
+      <Stats stats={data['index']}/>
 
-      <News news={}/> */}
+      <News news={data['news']}/>
     
       
     
@@ -39,7 +43,7 @@ export default function Home() {
        
 
         <div className="flex-grow-0">
-        {/* <Analysis chat={}></Analysis> */}
+        <Analysis chat={data['analysis']}></Analysis>
         </div>
       </div>
     </div>

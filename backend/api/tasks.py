@@ -108,48 +108,107 @@ def my_periodic_task():
 
                 
                 Here's some logic to help you with your analysis:
-                - **Unemployment Rate:**  
-                - High unemployment → Lower consumer spending → Reduced corporate profits → S&P 500 decline  
-                - Low unemployment → Higher consumer spending → Increased corporate profits → S&P 500 rise  
 
-                - **Interest Rates:**  
-                - Rising interest rates → Higher borrowing costs → Reduced business investments & consumer spending → S&P 500 decline  
-                - Falling interest rates → Cheaper borrowing → Business expansion & increased consumer spending → S&P 500 rise  
+                ## **1. Unemployment Rate:**  
+                - **Consumer Discretionary & Retail:**  
+                - High unemployment → Lower disposable income → Retail, travel, and leisure decline  
+                - Low unemployment → Higher consumer spending → Retail, travel, and hospitality growth  
 
-                - **Inflation:**  
-                - High inflation → Increased input costs → Lower corporate profit margins → S&P 500 decline  
-                - Moderate inflation → Indicates economic growth → Potential S&P 500 gains  
+                - **Utilities & Consumer Staples:**  
+                - Less sensitive due to necessity-driven demand, but prolonged high unemployment → Decline  
 
-                - **War and Geopolitical Tensions:**  
-                - Increased oil prices due to supply disruptions → Higher inflation → Lower consumer spending & corporate profits → S&P 500 decline  
-                - Peace agreements → Market stability → S&P 500 recovery  
+                ---
 
-                - **Sanctions and Trade Wars:**  
-                - Sanctions on major economies → Supply chain disruptions & trade slowdown → Corporate revenue decline → S&P 500 drop  
-                - Trade agreements → Reduced tariffs → Increased trade and profitability → S&P 500 rise  
+                ## **2. Interest Rates:**  
+                - **Real Estate & Utilities:**  
+                - Rising rates → Higher mortgage and debt servicing costs → Decline  
+                - Falling rates → Real estate boom → Construction sector rise  
 
-                - **Earnings Reports:**  
-                - Strong earnings → Investor confidence → Higher S&P 500  
-                - Weak earnings → Investor sell-off → Lower S&P 500  
+                - **Financials:**  
+                - Rising rates → Banks profit from lending → Financials up  
+                - Falling rates → Narrower lending margins → Financials decline  
 
-                - **Mergers & Acquisitions:**  
-                - Significant M&A activity → Market confidence in growth prospects → S&P 500 rise  
+                ---
 
-                - **Stock Buybacks:**  
-                - Corporate stock buybacks → Reduced supply of shares → Higher stock prices → S&P 500 boost  
+                ## **3. Inflation:**  
+                - **Energy & Materials:**  
+                - High inflation → Commodity prices rise → Oil, gas, metals sectors gain  
+                - Low inflation → Reduced profit margins in commodities → Sector decline  
 
-                - **Fiscal Policy (Taxes & Spending):**  
-                - Tax cuts → Increased disposable income & corporate profits → S&P 500 rise  
-                - Tax hikes → Reduced consumer & business spending → S&P 500 decline  
+                - **Technology & Consumer Discretionary:**  
+                - High inflation → Input costs rise → Margins shrink → Decline  
+                - Low inflation → Lower production costs → Sector growth  
 
-                - **Monetary Policy (Federal Reserve Actions):**  
-                - Quantitative easing → Increased liquidity → S&P 500 rise  
-                - Tightening monetary policy → Reduced liquidity → S&P 500 decline  
+                ---
 
-                - **Consumer Confidence Index (CCI):**  
-                - High CCI → More spending → Stronger corporate performance → S&P 500 rise  
-                - Low CCI → Reduced spending → Weaker corporate profits → S&P 500 decline  
+                ## **4. War & Geopolitical Tensions:**  
+                - **Energy:**  
+                - War in oil-producing regions → Supply disruptions → Oil prices spike → Energy sector gains  
 
+                - **Industrials & Transportation:**  
+                - High oil prices → Increased transportation and logistics costs → Sector decline  
+
+                - **Defense & Aerospace:**  
+                - War or geopolitical threats → Increased government defense spending → Sector growth  
+
+                ---
+
+                ## **5. Sanctions & Trade Wars:**  
+                - **Technology & Manufacturing:**  
+                - Supply chain disruptions → Tech hardware production slows → Decline  
+
+                - **Agriculture & Food:**  
+                - Import/export bans → Agriculture prices fluctuate → Sector volatility  
+
+                ---
+
+                ## **6. Earnings Reports:**  
+                - **Tech & Consumer Discretionary:**  
+                - Strong earnings → Tech, e-commerce, and luxury goods rally  
+                - Weak earnings → Widespread sell-off in growth-driven sectors  
+
+                ---
+
+                ## **7. Mergers & Acquisitions (M&A):**  
+                - **Healthcare & Pharma:**  
+                - High-profile M&As → Increased investor confidence → Sector surge  
+
+                - **Tech & Telecommunications:**  
+                - Industry consolidation → Market leaders strengthen → Sector gains  
+
+                ---
+
+                ## **8. Stock Buybacks:**  
+                - **Financials & Tech:**  
+                - Frequent buybacks in these sectors → Share price growth  
+
+                ---
+
+                ## **9. Fiscal Policy (Taxes & Spending):**  
+                - **Industrials & Construction:**  
+                - Infrastructure spending → Sector boom  
+                - Budget cuts → Reduced government contracts → Decline  
+
+                - **Energy & Utilities:**  
+                - Green energy incentives → Renewable energy sector gains  
+                - Fossil fuel tax hikes → Oil & gas sector decline  
+
+                ---
+
+                ## **10. Monetary Policy (Federal Reserve Actions):**  
+                - **Financials & Banks:**  
+                - Tightening policy → Higher lending rates → Banks profit  
+                - Loosening policy → Lower loan profits → Sector decline  
+
+                ---
+
+                ## **11. Consumer Confidence Index (CCI):**  
+                - **Automotive & Travel:**  
+                - High CCI → Increased car sales and travel bookings → Sector growth  
+                - Low CCI → Automotive and travel sectors decline 
+
+                ---
+                
                 Write your answer like the following example:
               **Market Indicator Predictions as of December 11, 2024:**\n\n- **Unemployment Rate:**  \n  - Prediction: **Decrease**  \n  - Reason: Current unemployment is stable around 4.2%, indicating a steady job market that supports consumer spending and corporate profits, likely benefiting the S&P 500.\n\n- **Interest Rates:**  \n  - Prediction: **Stay the Same**  \n  - Reason: With rates at 4.64%, a pause in further increases may support borrowing and investment, aiding corporate profits, thus positively impacting the S&P 500.\n\n- **Inflation:**  \n  - Prediction: **Stay the Same**  \n  - Reason: The CPI is stable, suggesting moderate inflation that indicates economic growth without eroding profit margins significantly, resulting in a neutral impact on the S&P 500.\n\n- **Geopolitical Tensions:**  \n  - Prediction: **Slight Decrease**  \n  - Reason: Ongoing tensions could disrupt markets and elevate oil prices, leading to higher inflation and decreased consumer spending, negatively affecting the S&P 500.\n\n- **Earnings Reports:**  \n  - Prediction: **Increase**  \n  - Reason: Expect strong earnings reports due to stable economic conditions, boosting investor confidence and likely lifting the S&P 500.\n\n- **Consumer Confidence Index (CCI):**  \n  - Prediction: **Increase**  \n  - Reason: With a reasonable unemployment rate and stable inflation, consumer confidence might rise, leading to increased spending and stronger corporate performance, benefiting the S&P 500.\n\nOverall, the market outlook is cautiously optimistic with factors supporting growth, although geopolitical risks could introduce volatility.
 

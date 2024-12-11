@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 export default function News({news}) {
   const [index, changeindex] = useState(0);
 
