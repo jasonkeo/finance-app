@@ -60,19 +60,19 @@ services:
     env_file:
       - secret.env 
     
-  frontend:
-    build: 
-      context: .
-      dockerfile: docker/next/Dockerfile
-    container_name: frontend
-    volumes:
-       - ./frontend:/app  # Mount the local frontend directory to the container
-       - /app/node_modules 
-    ports:
-      - "3000:3000"
-    command: ["npm", "run", "dev"]
-    env_file:
-      - secret.env
+  # frontend:
+  #   build: 
+  #     context: .
+  #     dockerfile: docker/next/Dockerfile
+  #   container_name: frontend
+  #   volumes:
+  #      - ./frontend:/app  # Mount the local frontend directory to the container
+  #      - /app/node_modules 
+  #   ports:
+  #     - "3000:3000"
+  #   command: ["npm", "run", "dev"]
+  #   env_file:
+  #     - secret.env
 
   nginx:
     image: nginx:latest
@@ -81,6 +81,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/out:/usr/share/nginx/html 
     depends_on:
       - web
       - frontend
