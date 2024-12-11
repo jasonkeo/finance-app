@@ -84,7 +84,6 @@ services:
       - ./nginx/out:/usr/share/nginx/html 
     depends_on:
       - web
-      - frontend
       - celery
       - beat
       - redis
