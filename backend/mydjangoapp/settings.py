@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*','celery_worker', 'localhost', '127.0.0.1', 'django_web', '1
 
 
 CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Application definition
