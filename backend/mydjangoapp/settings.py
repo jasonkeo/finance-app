@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*','https://ilovepickles.cc/','celery_worker', 'localhost', '1
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
 
 # Application definition
