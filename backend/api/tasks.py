@@ -3,7 +3,7 @@ from celery import shared_task
 import requests
 from datetime import datetime
 from openai import OpenAI
-client = OpenAI()
+client = OpenAI(os.getenv('OPENAI_API_KEY'))
 
 @shared_task
 def my_periodic_task():
