@@ -4,7 +4,7 @@ import requests
 from datetime import datetime
 from openai import OpenAI
 key = os.getenv('OPENAI_API_KEY')
-client = OpenAI(key)
+client = OpenAI(str(key))
 
 @shared_task
 def my_periodic_task():
