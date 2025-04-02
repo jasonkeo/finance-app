@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:14
+    image: postgres:alpine
     container_name: postgres_db
     env_file:
       - secret.env
