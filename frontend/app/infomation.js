@@ -4,7 +4,7 @@ dotenv.config();
 export default async function get() {
     const today = new Date();
     const formattedToday = today.toISOString().split('T')[0];
-    const backend = process.env.BACKEND? process.env.BACKEND : '170.64.157.96';
+    const backend = process.env.BACKEND? process.env.BACKEND : '209.38.80.23';
     const url = `http://localhost:8000/api/news/`;
     try {
         const response = await fetch(url); // Replace with your API URL
